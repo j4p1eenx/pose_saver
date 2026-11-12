@@ -1,0 +1,8 @@
+# Demo-only override: global localization gets 5 s instead of 90 s, so it cannot
+# converge and the node must end in state=FAILED with a reason and a stopped robot.
+# Usage (set POSE_DB_URL as usual):
+#   ros2 launch pose_saver_pkg pose_saver_turtlebot.launch.py \
+#     params_file:=$(ros2 pkg prefix pose_saver_pkg)/share/pose_saver_pkg/config/params_fail_demo.yaml
+pose_saver_node:
+  ros__parameters:
+    global_timeout_sec: 5.0

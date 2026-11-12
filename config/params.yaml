@@ -1,0 +1,34 @@
+pose_saver_node:
+  ros__parameters:
+    # --- storage ---
+    db_url: "https://robotsavedpose-default-rtdb.asia-southeast1.firebasedatabase.app"  # env POSE_DB_URL overrides
+    auth_token: ""            # env POSE_DB_TOKEN used if empty. Never commit a real token
+    robot_id: "turtlebot3_burger_01"
+    map_id: "turtlebot3_world" # saved poses from another map_id are rejected
+    use_local_cache: true
+    cache_dir: ""             # "" -> ~/.ros/pose_saver
+    # --- robot interface ---
+    base_frame: "base_footprint"
+    cmd_vel_topic: "/cmd_vel"
+    use_stamped_cmd_vel: true # true on Jazzy (TwistStamped), false on Humble (Twist)
+    # --- saving ---
+    save_interval_sec: 2.0
+    save_min_delta_m: 0.02
+    save_heartbeat_sec: 30.0
+    max_pose_age_sec: 604800.0  # 7 days; 0 disables the age check
+    # --- verification ---
+    scan_match_threshold: 0.35  # fraction of beam endpoints on occupied cells
+    scan_hit_neighbor_cells: 2  # tolerance in map cells (2 x 0.05 m = 10 cm)
+    scan_min_beams: 30
+    scan_stride: 2
+    max_sigma_m: 0.35           # sqrt(var_x + var_y) of AMCL estimate
+    max_drift_m: 0.30           # AMCL estimate vs saved pose
+    max_drift_yaw_rad: 0.40
+    initial_cov_xy: 0.01
+    initial_cov_yaw: 0.01
+    # --- timeouts / recovery ---
+    startup_timeout_sec: 60.0
+    confirm_timeout_sec: 10.0
+    global_timeout_sec: 90.0
+    global_hold_sec: 2.0
+    spin_speed_rad_s: 0.5

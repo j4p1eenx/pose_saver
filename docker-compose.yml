@@ -1,0 +1,26 @@
+services:
+  demo:
+    build:
+      context: .
+    init: true
+    stop_signal: SIGINT
+    stop_grace_period: 30s
+    network_mode: host
+    ipc: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - POSE_DB_URL=${POSE_DB_URL:-https://robotsavedpose-default-rtdb.asia-southeast1.firebasedatabase.app}
+      - POSE_DB_TOKEN=${POSE_DB_TOKEN:-}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - pose_cache:/root/.ros/pose_saver
+
+  headless:
+    extends:
+      service: demo
+    profiles: ["headless"]
+    command: xvfb-run -a bash -c "source /ros2_ws/install/setup.bash && exec ros2 launch pose_saver_pkg pose_saver_turtlebot.launch.py"
+
+volumes:
+  pose_cache:
