@@ -10,7 +10,7 @@ RUN echo 'Acquire::http::Timeout "30";' > /etc/apt/apt.conf.d/99timeout && \
 RUN apt-get update && apt-get install -y --no-install-recommends \
      ros-jazzy-turtlebot3-gazebo \
      ros-jazzy-rviz2 \
-     ros-jazzy-teleop-twist-keyboard \
+     ros-jazzy-turtlebot3-teleop \
      ros-jazzy-turtlebot3-navigation2 \
      ros-jazzy-nav2-bringup \
      ros-jazzy-ros-gz-sim \
